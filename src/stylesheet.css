@@ -141,7 +141,7 @@ button {
 }
 .weather-icon-large {
   display: block;
-  font-size: 170px;
+  font-size: 150px;
   text-align: center;
 }
 .temp-large {
@@ -153,4 +153,10 @@ button {
   font-size: 26px;
   text-align: center;
   font-family: "Courier New", Courier, monospace;
+}
+
+.footer {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
 }
