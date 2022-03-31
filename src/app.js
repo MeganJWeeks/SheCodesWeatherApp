@@ -11,28 +11,33 @@ function showPosition(position) {
 function localData() {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
-let now = new Date();
-let dayLabel = document.querySelector(".day");
-let timeLabel = document.querySelector(".time");
 
-let daysList = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = daysList[now.getDay()];
-let time = now.toLocaleTimeString("en-US", {
-  hour: "numeric",
-  minute: "numeric",
-  hour12: true,
-});
+function formatTime(timestamp) {
+  let time = new Date(timestamp).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+  console.log(time);
 
-timeLabel.innerHTML = `${time}`;
-dayLabel.innerHTML = `${day}`;
+  return `${time}`;
+}
+function formatDay(timestamp) {
+  let date = new Date(timestamp);
+  let daysList = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = daysList[date.getDay()];
+  return `${day}`;
+
+  //dayLabel.innerHTML = `${day}`;
+}
 
 function displayCurrentData(response) {
   document.querySelector("#show-city-heading").innerHTML = response.data.name;
@@ -47,6 +52,12 @@ function displayCurrentData(response) {
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed * 3.6
   );
+  let dateElement = document.querySelector(".time");
+  dateElement.innerHTML = formatTime(response.data.dt * 1000);
+  let dayElement = document.querySelector(".day");
+  dayElement.innerHTML = formatDay(response.data.dt * 1000);
+
+  //console.log(response.data);
 }
 
 //Search box action
