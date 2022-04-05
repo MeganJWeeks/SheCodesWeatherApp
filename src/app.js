@@ -12,31 +12,24 @@ function localData() {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 
-function formatTime(timestamp) {
-  let time = new Date(timestamp).toLocaleTimeString("en-US", {
+//function formatDay(timestamp) {
+//let date = new Date(timestamp).toLocaleWWAD3  xl ,ucString();
+// console.log(date);
+
+// return `${date}`;
+
+//dayLabel.innerHTML = `${day}`;
+//}
+
+function formatTimeData(timestamp) {
+  let timeData = new Date(timestamp).toLocaleTimeString("en", {
     hour: "numeric",
     minute: "numeric",
     hour12: true,
+    timeZone: "UTC",
   });
-  console.log(time);
-
-  return `${time}`;
-}
-function formatDay(timestamp) {
-  let date = new Date(timestamp);
-  let daysList = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let day = daysList[date.getDay()];
-  return `${day}`;
-
-  //dayLabel.innerHTML = `${day}`;
+  return `${timeData}`;
+  console.log(timestamp);
 }
 
 function displayCurrentData(response) {
@@ -52,12 +45,25 @@ function displayCurrentData(response) {
   document.querySelector("#wind").innerHTML = Math.round(
     response.data.wind.speed * 3.6
   );
-  let dateElement = document.querySelector(".time");
-  dateElement.innerHTML = formatTime(response.data.dt * 1000);
+  let iconElement = document.querySelector("#weather-icon-large");
+  iconElement.setAttribute(
+    "src",
+    `./src/icons/${response.data.weather[0].icon}.svg`
+  );
+  console.log(response.data.weather[0].icon);
+  iconElement.setAttribute("alt", response.data.weather[0].description);
+  //let dateElement = document.querySelector(".time");
+  // dateElement.innerHTML = formatTime(response.data.dt * 1000);
   let dayElement = document.querySelector(".day");
-  dayElement.innerHTML = formatDay(response.data.dt * 1000);
+  dayElement.innerHTML = formatDay(
+    Math.floor(new Date().getTime() / 1000 + response.data.timezone) * 1000
+  );
+  console.log(response.data.timezone);
 
-  //console.log(response.data);
+  let timeAtDataElement = document.querySelector(".time");
+  timeAtDataElement.innerHTML = formatTimeData(
+    Math.floor(new Date().getTime() / 1000 + response.data.timezone) * 1000
+  );
 }
 
 //Search box action

@@ -14,8 +14,8 @@
   background-color: #d7dae5;
   border-radius: 20px;
   width: 50%;
-  min-height: 600px;
-  max-height: 600px;
+  min-height: 550px;
+  max-height: 550px;
   padding: 60px 45px 20px 90px;
   margin-right: -40%;
   max-width: 450px;
@@ -25,7 +25,7 @@
 .weather-details {
   text-transform: uppercase;
   font-size: 18px;
-  margin-bottom: 45px;
+  margin-bottom: 20px;
   color: #2a324a;
 }
 
@@ -41,9 +41,8 @@
   border-radius: 20px;
   padding: 12px;
   background: #747b93;
-  margin-top: 10px;
-  margin-top: 45px;
-  margin-bottom: 45px;
+  margin-top: 35px;
+  margin-bottom: 35px;
   color: white;
 }
 
@@ -67,7 +66,7 @@
 .city-change {
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 30px;
   display: block;
   text-align: center;
 }
@@ -103,8 +102,8 @@ button {
 .left {
   width: 50%;
   max-width: 380px;
-  min-height: 600px;
-  max-height: 600px;
+  min-height: 550px;
+  max-height: 550px;
   background: url(https://images.unsplash.com/photo-1560837616-fee1f3d8753a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8Y2xvdWRzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60)
     no-repeat center / cover;
   border-radius: 20px;
@@ -139,15 +138,27 @@ button {
   bottom: 0px;
   position: relative;
 }
-.weather-icon-large {
+#weather-icon-large {
   display: block;
-  font-size: 120px;
+  margin: 0 auto;
+  font-size: 24px;
   text-align: center;
+  min-height: 100px;
+  max-height: 180px;
+  color: white;
 }
 .temp-large {
   display: block;
   text-align: center;
+  left: 5px;
 }
+#temperature-units {
+  font-size: 25px;
+  top: -18px;
+  left: 5px;
+  position: relative;
+}
+
 .weather-description {
   display: block;
   font-size: 26px;
