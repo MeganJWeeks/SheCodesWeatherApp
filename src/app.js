@@ -12,14 +12,20 @@ function localData() {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
 
-//function formatDay(timestamp) {
-//let date = new Date(timestamp).toLocaleWWAD3  xl ,ucString();
-// console.log(date);
-
-// return `${date}`;
-
-//dayLabel.innerHTML = `${day}`;
-//}
+function formatDay(timestamp) {
+  let day = new Date(timestamp);
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let dayOfWeek = days[day.getDay()];
+  return `${dayOfWeek}`;
+}
 
 function formatTimeData(timestamp) {
   let timeData = new Date(timestamp).toLocaleTimeString("en", {
@@ -29,7 +35,6 @@ function formatTimeData(timestamp) {
     timeZone: "UTC",
   });
   return `${timeData}`;
-  console.log(timestamp);
 }
 
 function displayCurrentData(response) {
@@ -50,10 +55,8 @@ function displayCurrentData(response) {
     "src",
     `./src/icons/${response.data.weather[0].icon}.svg`
   );
-  console.log(response.data.weather[0].icon);
+
   iconElement.setAttribute("alt", response.data.weather[0].description);
-  //let dateElement = document.querySelector(".time");
-  // dateElement.innerHTML = formatTime(response.data.dt * 1000);
   let dayElement = document.querySelector(".day");
   dayElement.innerHTML = formatDay(
     Math.floor(new Date().getTime() / 1000 + response.data.timezone) * 1000
