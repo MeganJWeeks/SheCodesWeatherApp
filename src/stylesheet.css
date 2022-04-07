@@ -138,6 +138,17 @@ button {
   bottom: 0px;
   position: relative;
 }
+
+.current-weather .active {
+  color: white;
+  cursor: default;
+}
+
+a {
+  text-decoration: none;
+  color: #2a324a;
+}
+
 #weather-icon-large {
   display: block;
   margin: 0 auto;
@@ -147,18 +158,26 @@ button {
   max-height: 180px;
   color: white;
 }
+
 .temp-large {
   display: block;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: -10px;
+}
+#temperature-large {
   text-align: center;
   left: 5px;
 }
-#temperature-units {
+
+#unit-divider,
+a#farenheit-link,
+a#celsius-link {
   font-size: 25px;
   top: -18px;
   left: 5px;
   position: relative;
 }
-
 .weather-description {
   display: block;
   font-size: 26px;

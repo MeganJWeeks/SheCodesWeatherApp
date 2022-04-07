@@ -1,6 +1,5 @@
-localData();
-
-function showPosition(position) {
+let celsiusTemperature = null;
+function callAxios(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiKey = "31238b661b9adec256406a8e4f2cdbd1";
@@ -9,7 +8,7 @@ function showPosition(position) {
 }
 
 function localData() {
-  navigator.geolocation.getCurrentPosition(showPosition);
+  navigator.geolocation.getCurrentPosition(callAxios);
 }
 
 function formatDay(timestamp) {
@@ -39,9 +38,9 @@ function formatTimeData(timestamp) {
 
 function displayCurrentData(response) {
   document.querySelector("#show-city-heading").innerHTML = response.data.name;
-  document.querySelector("span#temperature-large").innerHTML = Math.round(
-    response.data.main.temp
-  );
+  celsiusTemperature = response.data.main.temp;
+  document.querySelector("span#temperature-large").innerHTML =
+    Math.round(celsiusTemperature);
   document.querySelector("#weather-description").innerHTML =
     response.data.weather[0].main;
 
@@ -90,21 +89,29 @@ form.addEventListener("submit", handleSubmit);
 let currentLocationButton = document.querySelector("#current-city-button");
 currentLocationButton.addEventListener("click", localData);
 
-// Convert unit action
-//let isTempFormatCelcius = true;
+//Temperature conversion
 
-//function convertToF() {
-//let temperatureC = document.querySelector("span#temperature-units");
+function convertToF(event) {
+  event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let temperatureElement = document.querySelector("#temperature-large");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
 
-//if (isTempFormatCelcius) {
-//temperatureC.innerHTML = `59°F`;
-//isTempFormatCelcius = false;
-//} else {
-//temperatureC.innerHTML = `15°C`;
-//isTempFormatCelcius = true;
-//}
-//}
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
 
-//let temperatureClick = document.querySelector("span#temperature-units");
+function convertToC(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#temperature-large");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
 
-//temperatureClick.addEventListener("click", convertToF);
+let fahrenheitLink = document.querySelector("#farenheit-link");
+fahrenheitLink.addEventListener("click", convertToF);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", convertToC);
+localData();
