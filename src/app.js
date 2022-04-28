@@ -37,7 +37,6 @@ function formatTimeData(timestamp) {
 }
 
 function displayCurrentData(response) {
-  console.log(response);
   document.querySelector("#show-city-heading").innerHTML = response.data.name;
   celsiusTemperature = response.data.main.temp;
   document.querySelector("span#temperature-large").innerHTML =
@@ -67,14 +66,49 @@ function displayCurrentData(response) {
   timeAtDataElement.innerHTML = formatTimeData(
     Math.floor(new Date().getTime() / 1000 + response.data.timezone) * 1000
   );
+  console.log(response);
+  getForecast(response.data.coord);
+}
+
+//Get forecast data using response of current data
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "31238b661b9adec256406a8e4f2cdbd1";
+  let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=${apiKey}&units=metric`;
+  axios.get(url).then(displayForecast);
 }
 
 //Display forecast data
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily);
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
+  forecastHTML =
+    forecastHTML +
+    `<div class="col">
+      <div class="day-mini">Tue</div>
+      <img src="#" alt="⭐" class="weather-icon-mini" />
+      <div class="temp-mini-high">15°C</div>
+      <div class="temp-mini-low">2°C</div>
+    </div>`;
+  forecastHTML =
+    forecastHTML +
+    `<div class="col">
+      <div class="day-mini">Tue</div>
+      <img src="#" alt="⭐" class="weather-icon-mini" />
+      <div class="temp-mini-high">15°C</div>
+      <div class="temp-mini-low">2°C</div>
+    </div>`;
+  forecastHTML =
+    forecastHTML +
+    `<div class="col">
+      <div class="day-mini">Tue</div>
+      <img src="#" alt="⭐" class="weather-icon-mini" />
+      <div class="temp-mini-high">15°C</div>
+      <div class="temp-mini-low">2°C</div>
+    </div>`;
   forecastHTML =
     forecastHTML +
     `<div class="col">
@@ -142,4 +176,3 @@ fahrenheitLink.addEventListener("click", convertToF);
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", convertToC);
 localData();
-displayForecast();
