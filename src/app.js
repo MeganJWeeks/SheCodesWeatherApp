@@ -78,53 +78,35 @@ function getForecast(coordinates) {
   axios.get(url).then(displayForecast);
 }
 
+function formatDate(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
 //Display forecast data
 
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
-  forecastHTML =
-    forecastHTML +
-    `<div class="col">
-      <div class="day-mini">Tue</div>
-      <img src="#" alt="⭐" class="weather-icon-mini" />
-      <div class="temp-mini-high">15°C</div>
-      <div class="temp-mini-low">2°C</div>
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6 && index > 0) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col">
+      <div class="day-mini">${formatDate(forecastDay.dt)}</div>
+      <img src="./src/icons/${
+        forecastDay.weather[0].icon
+      }.svg" alt="⭐" class="weather-icon-mini" />
+      <div class="temp-mini-high">${Math.round(forecastDay.temp.max)}°C</div>
+      <div class="temp-mini-low">${Math.round(forecastDay.temp.min)}°C</div>
     </div>`;
-  forecastHTML =
-    forecastHTML +
-    `<div class="col">
-      <div class="day-mini">Tue</div>
-      <img src="#" alt="⭐" class="weather-icon-mini" />
-      <div class="temp-mini-high">15°C</div>
-      <div class="temp-mini-low">2°C</div>
-    </div>`;
-  forecastHTML =
-    forecastHTML +
-    `<div class="col">
-      <div class="day-mini">Tue</div>
-      <img src="#" alt="⭐" class="weather-icon-mini" />
-      <div class="temp-mini-high">15°C</div>
-      <div class="temp-mini-low">2°C</div>
-    </div>`;
-  forecastHTML =
-    forecastHTML +
-    `<div class="col">
-      <div class="day-mini">Tue</div>
-      <img src="#" alt="⭐" class="weather-icon-mini" />
-      <div class="temp-mini-high">15°C</div>
-      <div class="temp-mini-low">2°C</div>
-    </div>`;
-  forecastHTML =
-    forecastHTML +
-    `<div class="col">
-      <div class="day-mini">Tue</div>
-      <img src="#" alt="⭐" class="weather-icon-mini" />
-      <div class="temp-mini-high">15°C</div>
-      <div class="temp-mini-low">2°C</div>
-    </div>`;
+    }
+  });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
