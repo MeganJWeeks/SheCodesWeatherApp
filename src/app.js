@@ -1,4 +1,5 @@
 let celsiusTemperature = null;
+
 function callAxios(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
@@ -60,19 +61,16 @@ function displayCurrentData(response) {
   dayElement.innerHTML = formatDay(
     Math.floor(new Date().getTime() / 1000 + response.data.timezone) * 1000
   );
-  console.log(response.data.timezone);
 
   let timeAtDataElement = document.querySelector(".time");
   timeAtDataElement.innerHTML = formatTimeData(
     Math.floor(new Date().getTime() / 1000 + response.data.timezone) * 1000
   );
-  console.log(response);
   getForecast(response.data.coord);
 }
 
 //Get forecast data using response of current data
 function getForecast(coordinates) {
-  console.log(coordinates);
   let apiKey = "31238b661b9adec256406a8e4f2cdbd1";
   let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&exclude={part}&appid=${apiKey}&units=metric`;
   axios.get(url).then(displayForecast);
